@@ -139,7 +139,7 @@ List<dynamic> vragen = [
 
 StreamController<bool> startOpnieuw = StreamController.broadcast();
 
-SmtpData smtpData;
+SmtpData smtpData = SmtpData();
 
 class SmtpData {
   String username;

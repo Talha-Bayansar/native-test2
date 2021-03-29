@@ -5,6 +5,10 @@ class States extends ChangeNotifier {
   String selectedCategory = "All";
   bool isVideoDone = false;
   List<dynamic> vragen = lib.vragen;
+  String email;
+  String paswoord;
+  String smtpHost;
+  int smtpPort;
 
   void setCategory(String category) {
     this.selectedCategory = category;
@@ -30,6 +34,14 @@ class States extends ChangeNotifier {
     }
     this.vragen = list;
     lib.startOpnieuw.add(true);
+    notifyListeners();
+  }
+
+  void saveConfig(String email, String pw, int sp, String sh) {
+    this.email = email;
+    this.paswoord = pw;
+    this.smtpHost = sh;
+    this.smtpPort = sp;
     notifyListeners();
   }
 }
