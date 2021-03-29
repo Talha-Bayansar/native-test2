@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:native_test2/states.dart';
+import 'package:provider/provider.dart';
 
 import '../bibliotheek.dart' as lib;
 
@@ -25,55 +27,60 @@ class _UitslagState extends State<Uitslag> {
       mailStatus = "Mailer is niet geconfigureerd";
     }
 
-    return ListView(
-      children: [
-        Container(
-            height: 60,
-            child: Center(
-              child: Text("Uitslag", style: lib.kopTekst,),
-            )
-        ),
-        Center(
-          child: Text(widget.score.toString(), style: lib.kopTekst, textScaleFactor: 7),
-        ),
-        Center(
-          child: Text("van de ${lib.vragen.length} vragen goed", style: lib.basisTekst, textScaleFactor: 1.2),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Colors.blue, // background
-              onPrimary: Colors.white, // foreground
+    return ListView(children: [
+      Container(
+          height: 60,
+          child: Center(
+            child: Text(
+              "Uitslag",
+              style: lib.kopTekst,
             ),
-            child: Text('Opnieuw', style: lib.basisTekst, textScaleFactor: 1.2),
-            onPressed: () => lib.startOpnieuw.add(true),
+          )),
+      Center(
+        child: Text(widget.score.toString(),
+            style: lib.kopTekst, textScaleFactor: 7),
+      ),
+      Center(
+        child: Text(
+            "van de ${Provider.of<States>(context).vragen.length} vragen goed",
+            style: lib.basisTekst,
+            textScaleFactor: 1.2),
+      ),
+      Container(
+        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.blue, // background
+            onPrimary: Colors.white, // foreground
           ),
+          child: Text('Opnieuw', style: lib.basisTekst, textScaleFactor: 1.2),
+          onPressed: () => lib.startOpnieuw.add(true),
         ),
+      ),
+      Container(
+          height: 60,
+          child: Center(
+            child: Text(
+              mailStatus,
+              style: lib.kopTekst,
+            ),
+          )),
+      if (kanMailVerzenden)
         Container(
-            height: 60,
-            child: Center(
-              child: Text(mailStatus, style: lib.kopTekst,),
-            )
-        ),
-        if (kanMailVerzenden) Container(
           margin: EdgeInsets.symmetric(vertical: 20, horizontal: 60),
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
-                  onPrimary: Colors.white
-              ),
-              child: Text(mailKnopTekst, style: lib.basisTekst, textScaleFactor: 1.2),
+                  primary: Colors.blue, onPrimary: Colors.white),
+              child: Text(mailKnopTekst,
+                  style: lib.basisTekst, textScaleFactor: 1.2),
               onPressed: () => {
-                showDialog(
-                    context: context,
-                    builder: (context) => MailDialoog(widget.score, zetMailStatus)
-                )
-              }
-          ),
+                    showDialog(
+                        context: context,
+                        builder: (context) =>
+                            MailDialoog(widget.score, zetMailStatus))
+                  }),
         )
-      ]
-    );
+    ]);
   }
 
   void zetMailStatus(bool status) {
@@ -87,4 +94,3 @@ class _UitslagState extends State<Uitslag> {
     });
   }
 }
-
