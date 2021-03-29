@@ -102,18 +102,51 @@ class _ConfigState extends State<Config> {
           ),
           ElevatedButton(
             onPressed: () {
-              if (email && pw && port) {
+              if (email && pw && port && smtpHostController.text.length > 0) {
                 setState(() {
                   lib.smtpData.isValidConfigured = true;
                 });
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Instellingen SMTP-server"),
+                        content: Text("Werden opgeslagen en zijn correct!"),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("OK"),
+                          ),
+                        ],
+                      );
+                    });
+              } else {
+                setState(() {
+                  lib.smtpData.isValidConfigured = false;
+                });
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Instellingen SMTP-server"),
+                        content: Text("Werden opgeslagen, maar zijn foutief!"),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text("OK"),
+                          ),
+                        ],
+                      );
+                    });
               }
-              if (lib.smtpData.isValidConfigured) {
-                lib.smtpData.username = emailController.text;
-                lib.smtpData.password = paswoordController.text;
-                lib.smtpData.smtphost = smtpHostController.text;
-                lib.smtpData.smtpport = int.parse(smtpPortController.text);
-              }
-              print(lib.smtpData.username);
+              lib.smtpData.username = emailController.text;
+              lib.smtpData.password = paswoordController.text;
+              lib.smtpData.smtphost = smtpHostController.text;
+              lib.smtpData.smtpport = int.parse(smtpPortController.text);
             },
             child: Text("BEWAAR CONFIGURATIE"),
           ),
