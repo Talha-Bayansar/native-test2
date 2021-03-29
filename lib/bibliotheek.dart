@@ -110,8 +110,14 @@ List<dynamic> vragen = [
     "categorie": ["ICT"]
   },
   {
-    "vraag": "De bestorming van de Bastille wordt vaak gezien als het startpunt van de Franse Revolutie. Wanneer vond die plaats?",
-    "antwoorden": ["14 juli 1789", "28 juni 1698", "25 juli 1791", "2 augustus 1802"],
+    "vraag":
+        "De bestorming van de Bastille wordt vaak gezien als het startpunt van de Franse Revolutie. Wanneer vond die plaats?",
+    "antwoorden": [
+      "14 juli 1789",
+      "28 juni 1698",
+      "25 juli 1791",
+      "2 augustus 1802"
+    ],
     "correct": 0,
     "afbeelding": "bastille.jpg",
     "categorie": ["history", "revolution"]

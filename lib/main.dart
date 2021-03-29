@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:native_test2/states.dart';
 
 import 'bibliotheek.dart' as lib;
 
 import 'welkom.dart';
 import 'quiz.dart';
 import 'config.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   lib.smtpData = lib.SmtpData();
@@ -13,13 +15,16 @@ void main() {
 
 class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Quiz',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return ChangeNotifierProvider(
+      create: (context) => States(),
+      child: MaterialApp(
+        title: 'Quiz',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: QuizApp(),
       ),
-      home: QuizApp(),
     );
   }
 }
@@ -37,19 +42,12 @@ class QuizApp extends StatelessWidget {
                 indicatorColor: Colors.blueAccent,
                 labelColor: Colors.blueAccent,
                 tabs: [
-                  Tab(icon:Icon(Icons.home), text:"welkom"),
-                  Tab(icon:Icon(Icons.live_help), text:"QUIZ!"),
-                  Tab(icon:Icon(Icons.settings), text:"configuratie"),
-                ]
-            ),
+                  Tab(icon: Icon(Icons.home), text: "welkom"),
+                  Tab(icon: Icon(Icons.live_help), text: "QUIZ!"),
+                  Tab(icon: Icon(Icons.settings), text: "configuratie"),
+                ]),
             body: TabBarView(
-              children: [
-                Welkom(),
-                Quiz(),
-                Config()
-              ],
-            )
-        )
-    );
+              children: [Welkom(), Quiz(), Config()],
+            )));
   }
 }
